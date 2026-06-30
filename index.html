@@ -68,6 +68,11 @@
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
+        <select id="filterType" class="select">
+          <option value="">All types</option>
+          <option value="T/F">True / False</option>
+          <option value="Open">Open questions</option>
+        </select>
         <select id="filterSource" class="select">
           <option value="">All sources</option>
           <option value="Exam">Exams</option>
@@ -88,11 +93,11 @@
     <!-- Questions table -->
     <section class="table-wrap">
       <div class="table-head">
-        <span class="col-status">Done</span>
-        <span class="col-title">Question</span>
-        <span class="col-topic">Topic</span>
-        <span class="col-diff">Difficulty</span>
-        <span class="col-unit">Unit</span>
+        <button class="col-status th sortable" data-sort="done">Done<span class="sort-ind"></span></button>
+        <button class="col-title th sortable" data-sort="code">Question<span class="sort-ind"></span></button>
+        <button class="col-topic th sortable" data-sort="topic">Topic<span class="sort-ind"></span></button>
+        <button class="col-diff th sortable" data-sort="difficulty">Difficulty<span class="sort-ind"></span></button>
+        <button class="col-unit th sortable" data-sort="unit">Unit<span class="sort-ind"></span></button>
       </div>
       <div id="rows" class="rows"></div>
       <p id="emptyState" class="empty-state" hidden>No questions match your filters.</p>

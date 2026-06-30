@@ -34,6 +34,7 @@
     filterUnit: document.getElementById("filterUnit"),
     filterTopic: document.getElementById("filterTopic"),
     filterDifficulty: document.getElementById("filterDifficulty"),
+    filterType: document.getElementById("filterType"),
     filterSource: document.getElementById("filterSource"),
     filterSet: document.getElementById("filterSet"),
     filterStatus: document.getElementById("filterStatus"),
@@ -53,6 +54,43 @@
   };
 
   const RING_CIRCUMFERENCE = 2 * Math.PI * 52; // r = 52
+
+  // Compact, easy-to-scan code, e.g. "2023A-Q2" -> "2023AQ2", "HW1-Q1" -> "HW1Q1"
+  function shortCode(q) {
+    return q.id.replace(/-/g, "");
+  }
+
+  // Sort state: which column and direction (1 asc, -1 desc); null = original order
+  let sortKey = null;
+  let sortDir = 1;
+  const DIFF_RANK = { Easy: 0, Medium: 1, Hard: 2 };
+
+  function compare(a, b) {
+    let r = 0;
+    switch (sortKey) {
+      case "done":
+        r = (doneSet.has(a.id) ? 1 : 0) - (doneSet.has(b.id) ? 1 : 0);
+        break;
+      case "topic":
+        r = a.topic.localeCompare(b.topic);
+        break;
+      case "difficulty":
+        r = DIFF_RANK[a.difficulty] - DIFF_RANK[b.difficulty];
+        break;
+      case "unit":
+        r = a.unit - b.unit;
+        break;
+      case "code":
+      default:
+        r = 0;
+        break;
+    }
+    // Stable tie-break by the compact code (natural/numeric order)
+    if (r === 0) {
+      r = shortCode(a).localeCompare(shortCode(b), undefined, { numeric: true });
+    }
+    return r * sortDir;
+  }
 
   // ---- Populate filter dropdowns --------------------------------------
   function uniqueSorted(values) {
@@ -89,6 +127,7 @@
       unit: els.filterUnit.value,
       topic: els.filterTopic.value,
       difficulty: els.filterDifficulty.value,
+      type: els.filterType.value,
       source: els.filterSource.value,
       set: els.filterSet.value,
       status: els.filterStatus.value,
@@ -99,13 +138,14 @@
     if (f.unit && String(q.unit) !== f.unit) return false;
     if (f.topic && q.topic !== f.topic) return false;
     if (f.difficulty && q.difficulty !== f.difficulty) return false;
+    if (f.type && q.type !== f.type) return false;
     if (f.source && q.source !== f.source) return false;
     if (f.set && q.set !== f.set) return false;
     if (f.status === "done" && !doneSet.has(q.id)) return false;
     if (f.status === "todo" && doneSet.has(q.id)) return false;
     if (f.search) {
       const hay = [
-        q.id, q.set, q.number, q.topic, q.subtag, q.difficulty,
+        q.id, shortCode(q), q.set, q.number, q.topic, q.subtag, q.difficulty,
         q.type, q.prompt, q.answer, UNIT_NAMES[q.unit],
       ].join(" ").toLowerCase();
       if (!hay.includes(f.search)) return false;
@@ -126,7 +166,8 @@
           <input type="checkbox" class="check" ${done ? "checked" : ""} aria-label="Mark solved" />
         </div>
         <div class="q-title">
-          <span class="q-id"><span class="q-set">${escapeHtml(q.set)}</span> · ${escapeHtml(q.number)}
+          <span class="q-id">
+            <span class="q-code" title="${escapeHtml(q.set + " · " + q.number)}">${escapeHtml(shortCode(q))}</span>
             <span class="type-pill">${escapeHtml(q.type)}</span>
           </span>
           <span class="q-prompt">${escapeHtml(q.prompt)}</span>
@@ -165,6 +206,7 @@
   function render() {
     const f = getFilters();
     const visible = QUESTIONS.filter((q) => matches(q, f));
+    if (sortKey) visible.sort(compare);
 
     els.rows.innerHTML = "";
     const frag = document.createDocumentFragment();
@@ -267,7 +309,7 @@
 
   [
     els.search, els.filterUnit, els.filterTopic, els.filterDifficulty,
-    els.filterSource, els.filterSet, els.filterStatus,
+    els.filterType, els.filterSource, els.filterSet, els.filterStatus,
   ].forEach((el) => {
     el.addEventListener("input", render);
     el.addEventListener("change", render);
@@ -275,9 +317,34 @@
 
   els.clearFilters.addEventListener("click", function () {
     els.search.value = "";
-    [els.filterUnit, els.filterTopic, els.filterDifficulty, els.filterSource, els.filterSet, els.filterStatus]
+    [els.filterUnit, els.filterTopic, els.filterDifficulty, els.filterType,
+     els.filterSource, els.filterSet, els.filterStatus]
       .forEach((s) => (s.value = ""));
     render();
+  });
+
+  // Sortable column headers
+  function updateSortIndicators() {
+    document.querySelectorAll(".table-head .sortable").forEach((btn) => {
+      const active = btn.dataset.sort === sortKey;
+      btn.classList.toggle("sorted", active);
+      const ind = btn.querySelector(".sort-ind");
+      if (ind) ind.textContent = active ? (sortDir === 1 ? " ↑" : " ↓") : "";
+    });
+  }
+
+  document.querySelectorAll(".table-head .sortable").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const key = btn.dataset.sort;
+      if (sortKey === key) {
+        sortDir *= -1; // toggle direction
+      } else {
+        sortKey = key;
+        sortDir = 1;
+      }
+      updateSortIndicators();
+      render();
+    });
   });
 
   els.resetBtn.addEventListener("click", function () {
