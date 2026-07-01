@@ -25,6 +25,21 @@
   const doneSet = loadSet(STORAGE_KEY);
   let revealAnswers = localStorage.getItem(REVEAL_KEY) === "1";
 
+  // Migrate legacy homework ids (e.g. "HW1-Q1" -> "2026HW1-Q1") so previously
+  // saved progress is preserved after the renaming of the booklet problem sets.
+  (function migrateLegacyIds() {
+    let changed = false;
+    [...doneSet].forEach((id) => {
+      const m = id.match(/^HW(\d+-Q.+)$/);
+      if (m) {
+        doneSet.delete(id);
+        doneSet.add("2026HW" + m[1]);
+        changed = true;
+      }
+    });
+    if (changed) saveSet(STORAGE_KEY, doneSet);
+  })();
+
   // ---- DOM refs --------------------------------------------------------
   const els = {
     rows: document.getElementById("rows"),

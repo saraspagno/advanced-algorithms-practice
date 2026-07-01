@@ -2,9 +2,12 @@
  * Advanced Algorithms (3501) — Practice question bank.
  *
  * Every question from the past final exams (2023 Moed A/B, 2024 Moed A/B/C,
- * 2025 Moed A/B/C) and every homework problem (Problem Sets 1–4 from the
- * booklet). Each true/false statement counts as a single question; each open
- * problem (including its sub-parts) counts as a single question.
+ * 2025 Moed A/B/C) and the homework problem sets: 2026 (the booklet's Problem
+ * Sets 1–4), plus the 2025 and 2023 assignments. Homework questions that are
+ * identical to an exam question or to another homework question already in the
+ * bank are not duplicated. Each true/false statement counts as a single
+ * question; each open problem (including its sub-parts) counts as a single
+ * question.
  *
  * Fields per question:
  *   id         unique stable key (used for localStorage progress)
@@ -478,37 +481,37 @@ const QUESTIONS = [
   // Homework — Problem Set 1 (Unit 1)
   // =====================================================================
   {
-    id: "HW1-Q1", source: "Homework", set: "Homework Set 1", number: "Q1", type: "Open",
+    id: "2026HW1-Q1", source: "Homework", set: "2026 Homework 1", number: "Q1", type: "Open",
     unit: 1, topic: "Schwartz-Zippel & PIT", subtag: "Proof", difficulty: "Hard",
     prompt: "Prove the Schwartz-Zippel lemma: for a non-zero degree-d polynomial f over Q and finite S, Pr[f(α)=0] ≤ d/|S| when α_i are independent uniform over S.",
     answer: "Induction on n. Base (n=1): a non-zero univariate degree-d polynomial has ≤ d roots. Step: write f = Σ_i x_nⁱ f_i(x1,…,x_{n-1}), top index k, f_k ≢ 0, deg f_k ≤ d−k. Two-stage sampling: Case A (f_k(α)=0) has prob ≤ (d−k)/|S| by induction; Case B (f_k≠0) leaves a non-zero degree-k univariate in x_n, prob ≤ k/|S|. Total ≤ d/|S|.",
   },
   {
-    id: "HW1-Q2", source: "Homework", set: "Homework Set 1", number: "Q2", type: "Open",
+    id: "2026HW1-Q2", source: "Homework", set: "2026 Homework 1", number: "Q2", type: "Open",
     unit: 1, topic: "Algebraic Complexity", subtag: "Formula Size", difficulty: "Medium",
     prompt: "Prove that a formula of size s computes a polynomial of degree at most s.",
     answer: "Induction on s. Base: a leaf is a variable (deg 1) or scalar (deg 0) ≤ 1. Step: root is + or × with subformulas of size s1, s2, s1+s2+1=s. For +: deg = max ≤ s1+s2 < s. For ×: deg = deg F1 + deg F2 ≤ s1+s2 < s.",
   },
   {
-    id: "HW1-Q3", source: "Homework", set: "Homework Set 1", number: "Q3", type: "Open",
+    id: "2026HW1-Q3", source: "Homework", set: "2026 Homework 1", number: "Q3", type: "Open",
     unit: 1, topic: "Karger Min-Cut", subtag: "Counting Argument", difficulty: "Medium",
     prompt: "Prove a connected undirected graph on n vertices has at most n(n−1)/2 minimum cuts.",
     answer: "Karger outputs any fixed min cut C w.p. ≥ 2/(n(n−1)). These events are disjoint, so 1 ≥ Σ_i Pr[output C_i] ≥ t·2/(n(n−1)), giving t ≤ n(n−1)/2 = C(n,2).",
   },
   {
-    id: "HW1-Q4", source: "Homework", set: "Homework Set 1", number: "Q4", type: "Open",
+    id: "2026HW1-Q4", source: "Homework", set: "2026 Homework 1", number: "Q4", type: "Open",
     unit: 1, topic: "Schwartz-Zippel & PIT", subtag: "Determinant & Rank", difficulty: "Medium",
     prompt: "Given B1,…,Bk ∈ Q^{n×n}, decide in poly time (error ≤ 0.1) whether Σ x_i B_i is invertible for some x.",
     answer: "p(x) = det(Σ x_i B_i) is degree ≤ n (entries linear in x). Invertible combination exists iff p ≢ 0. Sample α_i ∈ {1,…,10n}, output YES iff det(Σ α_i B_i) ≠ 0. By Schwartz-Zippel error ≤ n/(10n) = 0.1.",
   },
   {
-    id: "HW1-Q5", source: "Homework", set: "Homework Set 1", number: "Q5", type: "Open",
+    id: "2026HW1-Q5", source: "Homework", set: "2026 Homework 1", number: "Q5", type: "Open",
     unit: 1, topic: "Schwartz-Zippel & PIT", subtag: "Cauchy-Binet", difficulty: "Hard",
     prompt: "Given U, V ∈ R^{n×m} of rank n, decide (randomized) whether there is a common basis B ⊆ [m], |B|=n, with both U_B and V_B full rank.",
     answer: "Let Y = diag(y1,…,ym), D = UYVᵀ. By Cauchy-Binet, det(D) = Σ_{|B|=n} det(U_B)det(V_B) y_B. A common basis exists iff some coefficient is non-zero iff det(D) ≢ 0. Sample β_i ∈ {1,…,10n}, test det(U·diag(β)·Vᵀ) ≠ 0; Schwartz-Zippel error ≤ 0.1.",
   },
   {
-    id: "HW1-Q6", source: "Homework", set: "Homework Set 1", number: "Q6", type: "Open",
+    id: "2026HW1-Q6", source: "Homework", set: "2026 Homework 1", number: "Q6", type: "Open",
     unit: 1, topic: "Chernoff Bound", subtag: "Union Bound", difficulty: "Hard",
     prompt: "Construct (w.p. ≥ 0.99) an ε-balanced set S ⊆ {−1,1}ⁿ of size O(n/ε²): for every non-empty I, |Σ_{v∈S} e_I(v)| ≤ ε|S|, where e_I(v)=Π_{i∈I}v_i.",
     answer: "Sample k = cn/ε² vectors uniformly. For fixed I, each e_I(v) is a fair ±1 coin, so by Chernoff Pr[|Σ| ≥ εk] ≤ 2e^{−ε²k/2}. Union bound over ≤ 2ⁿ subsets: Pr[bad] ≤ 2^{n+1}e^{−ε²k/2}; with k = cn/ε² the ε² cancels and for large c this is ≤ 0.01.",
@@ -518,37 +521,37 @@ const QUESTIONS = [
   // Homework — Problem Set 2 (Units 1–2)
   // =====================================================================
   {
-    id: "HW2-Q1", source: "Homework", set: "Homework Set 2", number: "Q1", type: "Open",
+    id: "2026HW2-Q1", source: "Homework", set: "2026 Homework 2", number: "Q1", type: "Open",
     unit: 2, topic: "Random Walks & Spectral Graphs", subtag: "Spectral Gap", difficulty: "Hard",
     prompt: "For a connected d-regular graph with B = ½I + ½A (normalized), prove the spectral gap bound λ2 ≤ 1 − 1/(4dn³). (Guided: large coordinate, sign flip, large edge difference, Rayleigh quotient.)",
     answer: "(a) Normalized eigenvector x of λ2 has some |x_i| ≥ 1/√n. (b) ⟨1,x⟩=0 forces some x_j ≤ 0. (c) A path from i to j (length < n) yields an edge with |x_u−x_v| ≥ 1/(n√n). (d) λ2 = 1 − ½ Σ B_{kℓ}(x_k−x_ℓ)² (using x_k x_ℓ = ½(x_k²+x_ℓ²−(x_k−x_ℓ)²)); the single edge (u,v) with B_{uv}=1/(2d) gives ≥ 1/(2dn³), so λ2 ≤ 1 − 1/(4dn³).",
   },
   {
-    id: "HW2-Q2", source: "Homework", set: "Homework Set 2", number: "Q2", type: "Open",
+    id: "2026HW2-Q2", source: "Homework", set: "2026 Homework 2", number: "Q2", type: "Open",
     unit: 2, topic: "Random Walks & Spectral Graphs", subtag: "Expander Mixing", difficulty: "Hard",
     prompt: "Prove the Expander Mixing Lemma: for a d-regular graph with λ = max(λ2, |λn|), | |E(S,T)| − d|S||T|/n | ≤ λ√(|S||T|).",
     answer: "|E(S,T)| = 1_Sᵀ A 1_T. Expand 1_S, 1_T in the orthonormal eigenbasis: |E(S,T)| = Σ_i α_i β_i λ_i. The i=1 term (v1 = 1/√n, λ1=d) gives d|S||T|/n. Bound the rest by λ Σ_{i≥2}|α_i||β_i| ≤ λ·√|S|·√|T| via Cauchy-Schwarz and Parseval.",
   },
   {
-    id: "HW2-Q3", source: "Homework", set: "Homework Set 2", number: "Q3", type: "Open",
+    id: "2026HW2-Q3", source: "Homework", set: "2026 Homework 2", number: "Q3", type: "Open",
     unit: 2, topic: "Isolation Lemma", subtag: "Common Basis (Search)", difficulty: "Hard",
     prompt: "Given U,V ∈ R^{n×m} of rank n, actually find a common basis B* (not just decide existence) using the Isolation Lemma.",
     answer: "Sample weights w_i ∈ {2,…,2m+1}, set y_i = 2^{w_i}, compute N = det(UYVᵀ). The largest power of 2 dividing N encodes w* = min common-basis weight. For each i, recompute with y_i → 2^{w_i−1}; i ∈ B* iff the min weight drops to w*−1. Verify |B|=n and full ranks. Isolation lemma gives a unique min-weight basis w.p. ≥ 1/2; repeat to amplify.",
   },
   {
-    id: "HW2-Q4", source: "Homework", set: "Homework Set 2", number: "Q4", type: "Open",
+    id: "2026HW2-Q4", source: "Homework", set: "2026 Homework 2", number: "Q4", type: "Open",
     unit: 2, topic: "Matrix Multiplication", subtag: "Transitive Closure", difficulty: "Medium",
     prompt: "Given a digraph G on n vertices, compute the transitive closure G* in O(nᵚ log n).",
     answer: "Let M = I ∨ A (self-loops). (Mᵏ)_{ij} = 1 iff a walk of length ≤ k exists; paths have length ≤ n−1. Compute M^{2^⌈log n⌉} by repeated squaring (entries are monotone, so this equals M^{n−1}): O(log n) boolean matrix multiplications, each O(nᵚ), total O(nᵚ log n) = o(n³).",
   },
   {
-    id: "HW2-Q5", source: "Homework", set: "Homework Set 2", number: "Q5", type: "Open",
+    id: "2026HW2-Q5", source: "Homework", set: "2026 Homework 2", number: "Q5", type: "Open",
     unit: 2, topic: "FFT", subtag: "Walsh-Hadamard", difficulty: "Medium",
     prompt: "Given x ∈ Rᴺ (N=2ⁿ), compute the Walsh-Hadamard transform H_n x in O(N log N).",
     answer: "Recursive WHT: split x = (x⁽¹⁾, x⁽²⁾), recursively compute y⁽¹⁾, y⁽²⁾, return (y⁽¹⁾+y⁽²⁾, y⁽¹⁾−y⁽²⁾). Correct by the block structure of H_n. T(N)=2T(N/2)+O(N)=O(N log N).",
   },
   {
-    id: "HW2-Q6", source: "Homework", set: "Homework Set 2", number: "Q6", type: "Open",
+    id: "2026HW2-Q6", source: "Homework", set: "2026 Homework 2", number: "Q6", type: "Open",
     unit: 2, topic: "SDP & PSD", subtag: "PSD Characterizations", difficulty: "Medium",
     prompt: "Prove the three equivalent characterizations of a real symmetric PSD matrix A: (a) PSD ⇒ all eigenvalues ≥ 0; (b) eigenvalues ≥ 0 ⇒ A = BᵀB; (c) A = BᵀB ⇒ PSD.",
     answer: "(a) For eigenpair (λ,v): vᵀAv = λ‖v‖² ≥ 0 ⇒ λ ≥ 0. (b) Spectral theorem A = QDQᵀ with D ≥ 0; set B = √D·Qᵀ, then BᵀB = Q D Qᵀ = A. (c) Aᵀ = (BᵀB)ᵀ = A symmetric, and vᵀAv = ‖Bv‖² ≥ 0.",
@@ -558,31 +561,31 @@ const QUESTIONS = [
   // Homework — Problem Set 3 (Unit 3)
   // =====================================================================
   {
-    id: "HW3-Q1", source: "Homework", set: "Homework Set 3", number: "Q1", type: "Open",
+    id: "2026HW3-Q1", source: "Homework", set: "2026 Homework 3", number: "Q1", type: "Open",
     unit: 3, topic: "LP Formulation", subtag: "Diet Problem", difficulty: "Easy",
     prompt: "Salad bar LP: vegetable salad 50/kg, chicken salad 70/kg, with tomato/cucumber/chicken content and minimum requirements. Formulate and solve the LP.",
     answer: "min 50x + 70y s.t. 100x+130y ≥ 200, 150x+110y ≥ 350, 80y ≥ 120, x,y ≥ 0. Optimum x* = 37/30, y* = 3/2, cost 500/3 ≈ 166.67 (chicken and cucumber constraints tight, tomato slack).",
   },
   {
-    id: "HW3-Q2", source: "Homework", set: "Homework Set 3", number: "Q2", type: "Open",
+    id: "2026HW3-Q2", source: "Homework", set: "2026 Homework 3", number: "Q2", type: "Open",
     unit: 3, topic: "LP Duality", subtag: "Complementary Slackness", difficulty: "Medium",
     prompt: "Write the dual of the salad-bar LP and solve it via complementary slackness; verify strong duality.",
     answer: "Dual: max 200p+350q+120r s.t. 100p+150q ≤ 50, 130p+110q+80r ≤ 70, p,q,r ≥ 0. Tomato slack ⇒ p=0; x*,y* > 0 ⇒ both dual constraints tight ⇒ q=1/3, r=5/12. Dual value 350/3 + 50 = 500/3 matches the primal.",
   },
   {
-    id: "HW3-Q3", source: "Homework", set: "Homework Set 3", number: "Q3", type: "Open",
+    id: "2026HW3-Q3", source: "Homework", set: "2026 Homework 3", number: "Q3", type: "Open",
     unit: 3, topic: "LP Rounding", subtag: "Densest Subgraph", difficulty: "Hard",
     prompt: "Densest subgraph via LP: max Σ x_{uv} s.t. x_{uv} ≤ y_u, x_{uv} ≤ y_v, Σ y_v ≤ 1, all ≥ 0. Show the LP optimum equals max_S D(S) = |E_S|/|S| via a threshold-rounding argument.",
     answer: "LP ≥ max D(S): set y_v = 1/|S|, x_{uv}=1/|S| on S. WLOG x_{uv} = min(y_u,y_v). For threshold r∈[0,1], S(r)={v:y_v≥r}, E(r)={(u,v):x_{uv}≥r} satisfy u,v∈S(r) ⟺ (u,v)∈E(r). E_r[|S(r)|] = Σ y_v ≤ 1, E_r[|E(r)|] = Σ x_{uv} = α. If |E(r)| < α|S(r)| for all r then α < α — contradiction; so some r* gives D(S(r*)) ≥ α.",
   },
   {
-    id: "HW3-Q4", source: "Homework", set: "Homework Set 3", number: "Q4", type: "Open",
+    id: "2026HW3-Q4", source: "Homework", set: "2026 Homework 3", number: "Q4", type: "Open",
     unit: 3, topic: "LP Duality", subtag: "Farkas Lemma", difficulty: "Medium",
     prompt: "Derive Farkas' Lemma I from Farkas' Lemma II: if {Ax=b, x≥0} is infeasible then ∃y with yᵀA ≥ 0 and yᵀb < 0.",
     answer: "Rewrite Ax=b, x≥0 as Cx ≤ d with C = (Aᵀ, −Aᵀ, −I)ᵀ, d = (bᵀ, −bᵀ, 0)ᵀ. Farkas II gives z = (z⁺,z⁻,z⁰) ≥ 0 with zᵀC = 0, zᵀd < 0. Then y = z⁺ − z⁻ satisfies yᵀA = (z⁰)ᵀ ≥ 0 and yᵀb < 0.",
   },
   {
-    id: "HW3-Q5", source: "Homework", set: "Homework Set 3", number: "Q5", type: "Open",
+    id: "2026HW3-Q5", source: "Homework", set: "2026 Homework 3", number: "Q5", type: "Open",
     unit: 3, topic: "LP Duality", subtag: "Farkas Lemma", difficulty: "Hard",
     prompt: "Partial strong duality via Farkas: (a) (P) infeasible and (D) feasible ⇒ (D) unbounded; (b) (D) infeasible and (P) feasible ⇒ (P) unbounded.",
     answer: "(a) Farkas gives y' with (y')ᵀA ≥ 0, (y')ᵀb < 0. For dual-feasible y and λ>0, y−λy' stays feasible and bᵀ(y−λy') → +∞. (b) (D) infeasible ⇒ Farkas II gives z ≥ 0 with Az=0, cᵀz < 0; for primal-feasible x, x+λz is feasible and cᵀ(x+λz) → −∞.",
@@ -592,28 +595,105 @@ const QUESTIONS = [
   // Homework — Problem Set 4 (Unit 4)
   // =====================================================================
   {
-    id: "HW4-Q1", source: "Homework", set: "Homework Set 4", number: "Q1", type: "Open",
+    id: "2026HW4-Q1", source: "Homework", set: "2026 Homework 4", number: "Q1", type: "Open",
     unit: 4, topic: "Farkas & Ellipsoid", subtag: "Volume Bounds", difficulty: "Hard",
     prompt: "Volume bounds for the ellipsoid algorithm on Cx ≤ d. (a) Infeasibility is preserved under perturbation to Cx ≤ d + 2^{−L'}1. (b) A feasible system contains a ball of radius 2^{−2L'}.",
     answer: "(a) Farkas II gives z ≥ 0 with zᵀC=0, zᵀd<0; the same z certifies infeasibility of the perturbed system once L' ≥ poly(L) makes 2^{−L'}zᵀ1 < |zᵀd| (Cramer bounds the certificate's size). (b) Take a vertex x̂ (|x̂_j| ≤ 2^L); any x within 2^{−2L'} satisfies c_iᵀx ≤ d_i + ‖c_i‖·2^{−2L'} ≤ d_i + 2^{−L'} for L' ≥ poly(L). So feasible ⇒ volume ≥ 2^{−Θ(L'n)}.",
   },
   {
-    id: "HW4-Q2", source: "Homework", set: "Homework Set 4", number: "Q2", type: "Open",
+    id: "2026HW4-Q2", source: "Homework", set: "2026 Homework 4", number: "Q2", type: "Open",
     unit: 4, topic: "Integer Programming", subtag: "IP Formulation", difficulty: "Medium",
     prompt: "Give IP formulations for (a) Max-Clique, (b) Subset-Sum, (c) Min-Coloring.",
     answer: "(a) max Σ x_v s.t. x_u+x_v ≤ 1 for every non-edge {u,v}∉E, x_v∈{0,1}. (b) find x∈{0,1}ⁿ s.t. Σ w_i x_i = t. (c) min Σ y_k s.t. Σ_k x_{v,k}=1 ∀v, x_{u,k}+x_{v,k} ≤ 1 ∀(u,v)∈E ∀k, x_{v,k} ≤ y_k, all ∈{0,1}.",
   },
   {
-    id: "HW4-Q3", source: "Homework", set: "Homework Set 4", number: "Q3", type: "Open",
+    id: "2026HW4-Q3", source: "Homework", set: "2026 Homework 4", number: "Q3", type: "Open",
     unit: 4, topic: "LP Rounding", subtag: "Set Cover (Randomized)", difficulty: "Medium",
     prompt: "Randomized rounding for set cover. (a) IP/LP. (b) Expected size when including each S with prob x*_S. (c) Each element covered w.p. ≥ 1−1/e. (d) T = ln(n/ε) rounds give an O(log n)-approx covering all elements w.p. ≥ 1−ε.",
     answer: "(a) min Σ x_S s.t. Σ_{S∋i} x_S ≥ 1, relax to [0,1]. (b) E[|S|] = Σ x*_S = LPOPT ≤ OPT. (c) Pr[i uncovered] = Π(1−x*_S) ≤ e^{−Σ x*_S} ≤ 1/e. (d) Over T rounds, Pr[i uncovered] ≤ e^{−T} = ε/n; union bound ⇒ all covered w.p. ≥ 1−ε; expected size T·LPOPT ≤ OPT·ln(n/ε).",
   },
   {
-    id: "HW4-Q4", source: "Homework", set: "Homework Set 4", number: "Q4", type: "Open",
+    id: "2026HW4-Q4", source: "Homework", set: "2026 Homework 4", number: "Q4", type: "Open",
     unit: 4, topic: "SDP & PSD", subtag: "Goemans-Williamson", difficulty: "Hard",
     prompt: "Show Max-2-LIN (constraints x_i x_j = ±1 over ±1 variables) has a 0.878-approximation via the Goemans-Williamson SDP + random hyperplane rounding.",
     answer: "SDP relaxes x_v to unit vectors; equality terms (1+⟨v_i,v_j⟩)/2, inequality terms (1−⟨v_i,v_j⟩)/2. Random hyperplane rounding: inequality constraints satisfied w.p. θ_{ij}/π, GW gives ratio ≥ α ≈ 0.878. Equality constraints use φ_{ij} = π−θ_{ij}, giving the same ratio. Hence E[ALG] ≥ α·SDPOPT ≥ α·OPT.",
+  },
+
+  // =====================================================================
+  // Homework — 2025 problem sets (only the problems not already covered
+  // above; duplicates of existing exam/2026 questions are intentionally
+  // omitted).
+  // =====================================================================
+  {
+    id: "2025HW1-Q2", source: "Homework", set: "2025 Homework 1", number: "Q2", type: "Open",
+    unit: 1, topic: "BPP & Error Reduction", subtag: "ZPP → Bounded Error", difficulty: "Medium",
+    prompt: "Let A be a zero-error randomized algorithm for a problem P with expected running time E[T(x)] ≤ nᶜ. Prove there is a randomized algorithm A′ with worst-case running time ≤ 10nᶜ that outputs the correct answer with probability ≥ 0.9, and otherwise outputs \"error\".",
+    answer: "Run A for at most 10nᶜ steps; if it halts output its answer, otherwise output \"error\". A′ can only be wrong (say \"error\") when A hasn't finished, i.e. T(x) > 10nᶜ. By Markov's inequality, Pr[T(x) > 10nᶜ] ≤ E[T(x)]/(10nᶜ) ≤ nᶜ/(10nᶜ) = 1/10.",
+  },
+  {
+    id: "2025HW1-Q3", source: "Homework", set: "2025 Homework 1", number: "Q3", type: "Open",
+    unit: 1, topic: "Schwartz-Zippel & PIT", subtag: "Self-Correction", difficulty: "Hard",
+    prompt: "Let f be an n-variate degree-d polynomial over F_p (p > 10d). Suppose a deterministic algorithm A computes f correctly on every input except a bad set B_f with |B_f| ≤ ε·|F_pⁿ|. Show a randomized algorithm A′ that computes f(a) for any a with error probability O(dε).",
+    answer: "Pick a random direction r ∈ F_pⁿ and restrict f to the line ℓ(t) = a + t·r. Since f∘ℓ is a univariate degree-d polynomial, evaluate A at d+1 points ℓ(t₁),…,ℓ(t_{d+1}) (t_i ≠ 0), interpolate g, and output g(0) = f(a). For fixed t ≠ 0, ℓ(t) is uniform over F_pⁿ∖{a}, so each ℓ(t_i) lands in B_f with probability ≤ ε; a union bound over the d+1 points gives failure probability ≤ (d+1)ε = O(dε).",
+  },
+  {
+    id: "2025HW2-Q5", source: "Homework", set: "2025 Homework 2", number: "Q5", type: "Open",
+    unit: 2, topic: "Determinant & Char. Polynomial", subtag: "Rank via AᵀA", difficulty: "Hard",
+    prompt: "For a real matrix A: (a) show rank(A) = rank(AᵀA); (b) if AᵀA has exactly k zero eigenvalues, show rank(A) = m − k; (c) give a parallel O(log²n) algorithm computing rank(A) using the characteristic polynomial of AᵀA.",
+    answer: "(a) ker(A) = ker(AᵀA): if Ax=0 then AᵀAx=0; if AᵀAx=0 then xᵀAᵀAx = ‖Ax‖² = 0 ⇒ Ax=0. Rank-nullity gives equal ranks. (b) B = AᵀA is symmetric hence diagonalizable, so the geometric multiplicity of eigenvalue 0 equals its algebraic multiplicity k; dim ker(B)=k ⇒ rank(B)=m−k. (c) The characteristic polynomial p(x)=det(xI−B) = xᵏ·q(x) with q(0)≠0, so k is the lowest power of x with non-zero coefficient. Compute B in parallel O(log n), its characteristic polynomial in O(log²n), then scan for the smallest non-zero coefficient index k; rank(A) = m − k.",
+  },
+
+  // =====================================================================
+  // Homework — 2023 problem sets (only the problems not already covered
+  // above).
+  // =====================================================================
+  {
+    id: "2023HW1-Q1", source: "Homework", set: "2023 Homework 1", number: "Q1", type: "Open",
+    unit: 1, topic: "BPP & Error Reduction", subtag: "ZPP / RP / coRP", difficulty: "Hard",
+    prompt: "Prove the following relationships between randomized complexity classes: (a) the two definitions of ZPP (expected poly-time zero-error vs. an \"I don't know\" algorithm erring w.p. ≤ 1/3) are equivalent; (b) RP ⊆ BPP (and coRP ⊆ BPP); (c) ZPP = RP ∩ coRP.",
+    answer: "(a) From expected time E[T] ≤ f(n): run ≤ 10f(n) steps else say \"I don't know\" — Markov gives Pr[\"I don't know\"] ≤ 1/10. Conversely rerun the \"I don't know\" algorithm with fresh randomness until it answers; the number of tries is geometric with expectation 1/(1−p), so expected time 1/(1−p)·f(n) is polynomial. (b) For A∈RP run its one-sided machine twice, accept if either accepts: false-accepts stay 0, true-accepts ≥ 1−(1/2)² = 3/4. coRP is symmetric. (c) ZPP⊆RP: treat \"I don't know\" as reject (one-sided error ≤ 1/3), symmetrically ZPP⊆coRP. RP∩coRP⊆ZPP: run the RP machine M₁ and coRP machine M₂ — if M₁ accepts, accept; if M₂ rejects, reject; else say \"I don't know\" (prob ≤ 1/3).",
+  },
+  {
+    id: "2023HW1-Q4", source: "Homework", set: "2023 Homework 1", number: "Q4", type: "Open",
+    unit: 1, topic: "Fingerprinting & Primes", subtag: "Communication Protocol", difficulty: "Medium",
+    prompt: "Alice and Bob hold n-bit numbers a, b ∈ {0,…,2ⁿ−1}. Give a randomized communication protocol using only O(log n) bits that decides whether a = b, with error probability ≤ 1/n⁸.",
+    answer: "Alice picks a uniform random prime p ∈ [1, n¹⁰] and sends p and (a mod p) — both O(log n) bits. Bob declares \"equal\" iff b ≡ a (mod p). If a=b they match for every p. If a≠b then a ≡ b (mod p) iff p divides a−b; since 0 < |a−b| < 2ⁿ it has at most n distinct prime factors, while there are ≥ n⁹ primes ≤ n¹⁰ (prime-counting bound from class), so a \"bad\" prime is picked with probability ≤ n/n⁹ = 1/n⁸.",
+  },
+  {
+    id: "2023HW2-Q1", source: "Homework", set: "2023 Homework 2", number: "Q1", type: "Open",
+    unit: 2, topic: "Matrix Multiplication", subtag: "Triangle Counting", difficulty: "Medium",
+    prompt: "Give an algorithm running in time asymptotically smaller than n³ that counts the number of triangles in an undirected graph G.",
+    answer: "Let A be the adjacency matrix. (A³)_{i,i} counts closed length-3 walks from i, i.e. triangles through i; summed over the diagonal each triangle is counted 6 times (3 vertices × 2 orientations). Output tr(A³)/6. Compute A³ with two fast matrix multiplications in O(nᵚ) ≈ O(n^2.81), and the trace in O(n).",
+  },
+  {
+    id: "2023HW2-Q2", source: "Homework", set: "2023 Homework 2", number: "Q2", type: "Open",
+    unit: 2, topic: "FFT", subtag: "Toeplitz Matrix-Vector", difficulty: "Medium",
+    prompt: "Let A be an n×n matrix whose entry A_{i,j} depends only on i−j (a Toeplitz matrix given by a coefficient list), and let v ∈ Rⁿ. Show how to compute the matrix-vector product Av in time O(n log n).",
+    answer: "Encode the row-defining entries as a polynomial a(x) = Σ aₖxᵏ and v as b(x) = Σ vₖxᵏ. Each coordinate (Av)ₖ = Σ_j A_{k,j} v_j = Σ_j a_{k−j} v_j is exactly a coefficient of the product a(x)·b(x). Multiply the two polynomials by FFT in O(n log n) and read off the relevant coefficients.",
+  },
+  {
+    id: "2023HW2-Q3", source: "Homework", set: "2023 Homework 2", number: "Q3", type: "Open",
+    unit: 2, topic: "FFT", subtag: "Repeated Squaring", difficulty: "Medium",
+    prompt: "A die has faces 1..n with probabilities p₁,…,pₙ. (a) Compute in O(n log n) the distribution of the sum of two independent rolls. (b) For the sum of 2ᵏ independent rolls, bound the number of arithmetic operations needed.",
+    answer: "Let f(x) = Σ pᵢxⁱ. (a) Pr[Y₁+Y₂ = s] = Σ_{i+j=s} pᵢpⱼ is the coefficient of xˢ in f(x)², one FFT multiplication in O(n log n). (b) The distribution of 2ᵏ rolls is given by the coefficients of f^{2ᵏ}, obtained by k repeated squarings f, f², f⁴, …. Since deg(f^{2ⁱ}) = n·2ⁱ, total work Σᵢ M(n·2ⁱ) ≤ M(2^{k+1}n) = O(2ᵏ n (log n + k)).",
+  },
+  {
+    id: "2023HW3-Q1", source: "Homework", set: "2023 Homework 3", number: "Q1", type: "Open",
+    unit: 3, topic: "LP Formulation", subtag: "Transportation", difficulty: "Easy",
+    prompt: "Two fields G, N produce a crop shipped to three cities T, J, H with given per-unit shipping costs, per-field supply limits, and per-city demands. Formulate the shipping problem as an LP.",
+    answer: "Variable x_{F,C} = amount shipped from field F to city C (6 variables). minimize Σ_{F,C} cost_{F,C}·x_{F,C}. Demand (equality) constraints: for each city C, Σ_F x_{F,C} = demand_C. Supply constraints: for each field F, Σ_C x_{F,C} ≤ capacity_F. Non-negativity x_{F,C} ≥ 0. (In the given instance the optimum ships G→T=4, G→J=6, N→T=4, N→H=5 for total cost 82,000.)",
+  },
+  {
+    id: "2023HW3-Q3", source: "Homework", set: "2023 Homework 3", number: "Q3", type: "Open",
+    unit: 3, topic: "Simplex & LP Geometry", subtag: "Bland's Rule / Anti-cycling", difficulty: "Hard",
+    prompt: "Prove that the simplex algorithm with Bland's pivoting rule (always pick the lowest-index eligible entering and leaving variable) never cycles, and hence terminates.",
+    answer: "Suppose it cycles. During a cycle only 'fickle' variables (those that enter/leave) move, and their basic values stay 0. Let t be the highest-index fickle variable; it enters at some step with basis B and leaves with a later basis B′. Form the direction d with d_s = 1 for the entering variable s and d_B = −(A_B⁻¹A_N)_s, so that Ad = 0. Comparing reduced-cost vectors, f̃ = c̃′ − c̃ = vᵀA for some v, hence f̃·d = vᵀ(Ad) = 0. But Bland's rule constrains the signs of the f̃ and d entries (positive for the s,t terms, non-negative for the other fickle terms, zero elsewhere), forcing f̃·d > 0 — a contradiction. So no cycle exists and simplex terminates.",
+  },
+  {
+    id: "2023HW5-Q1", source: "Homework", set: "2023 Homework 5", number: "Q1", type: "Open",
+    unit: 4, topic: "Greedy Approximation", subtag: "Independent Set", difficulty: "Medium",
+    prompt: "Give a 1/(Δ+1)-approximation algorithm for Maximum Independent Set on graphs of maximum degree ≤ Δ, and prove the ratio.",
+    answer: "Greedy: while G is non-empty, pick a vertex v, add it to S, and delete v together with all its neighbors. S is independent (any vertex added later had its earlier neighbor already removed). Each iteration removes at most Δ+1 vertices, so |S| ≥ n/(Δ+1). Since OPT ≤ n, ALG = |S| ≥ n/(Δ+1) ≥ OPT/(Δ+1).",
   },
 ];
 

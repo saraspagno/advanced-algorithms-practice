@@ -28,7 +28,12 @@ problem sets, each tagged with:
 ## Question counts
 
 - 8 exams: 2023 Moed A/B, 2024 Moed A/B/C, 2025 Moed A/B/C
-- 4 homework sets: Problem Sets 1–4 (from the booklet)
+- Homework sets:
+  - **2026** (the booklet's Problem Sets 1–4)
+  - **2025** and **2023** past-year assignments
+- Homework problems identical to an exam question (or to another homework
+  already listed) are not duplicated. Question codes carry the year so the
+  sources stay distinguishable, e.g. `2026HW1Q1`, `2025HW1Q3`, `2023HW2Q1`.
 - Each true/false statement is one question; each open problem (with its parts)
   is one question.
 
