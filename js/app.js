@@ -80,11 +80,16 @@
   let sortDir = 1;
   const DIFF_RANK = { Easy: 0, Medium: 1, Hard: 2 };
 
-  // How many questions each topic has (used to sort by popularity, not name).
-  const TOPIC_COUNT = QUESTIONS.reduce((acc, q) => {
-    acc[q.topic] = (acc[q.topic] || 0) + 1;
-    return acc;
-  }, {});
+  // How many questions each topic has within the *currently filtered* set.
+  // Recomputed on every render so sorting by topic reflects active filters
+  // (e.g. only Open questions if True/False is filtered out).
+  let topicCount = {};
+  function computeTopicCount(list) {
+    topicCount = list.reduce((acc, q) => {
+      acc[q.topic] = (acc[q.topic] || 0) + 1;
+      return acc;
+    }, {});
+  }
 
   function compare(a, b) {
     let r = 0;
@@ -95,7 +100,7 @@
       case "topic":
         // Sort by number of questions in the topic (most first), grouping
         // ties alphabetically so a topic's questions stay together.
-        r = TOPIC_COUNT[b.topic] - TOPIC_COUNT[a.topic];
+        r = topicCount[b.topic] - topicCount[a.topic];
         if (r === 0) r = a.topic.localeCompare(b.topic);
         break;
       case "difficulty":
@@ -230,6 +235,7 @@
   function render() {
     const f = getFilters();
     const visible = QUESTIONS.filter((q) => matches(q, f));
+    computeTopicCount(visible);
     if (sortKey) visible.sort(compare);
 
     els.rows.innerHTML = "";
