@@ -80,6 +80,12 @@
   let sortDir = 1;
   const DIFF_RANK = { Easy: 0, Medium: 1, Hard: 2 };
 
+  // How many questions each topic has (used to sort by popularity, not name).
+  const TOPIC_COUNT = QUESTIONS.reduce((acc, q) => {
+    acc[q.topic] = (acc[q.topic] || 0) + 1;
+    return acc;
+  }, {});
+
   function compare(a, b) {
     let r = 0;
     switch (sortKey) {
@@ -87,7 +93,10 @@
         r = (doneSet.has(a.id) ? 1 : 0) - (doneSet.has(b.id) ? 1 : 0);
         break;
       case "topic":
-        r = a.topic.localeCompare(b.topic);
+        // Sort by number of questions in the topic (most first), grouping
+        // ties alphabetically so a topic's questions stay together.
+        r = TOPIC_COUNT[b.topic] - TOPIC_COUNT[a.topic];
+        if (r === 0) r = a.topic.localeCompare(b.topic);
         break;
       case "difficulty":
         r = DIFF_RANK[a.difficulty] - DIFF_RANK[b.difficulty];
