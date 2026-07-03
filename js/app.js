@@ -55,6 +55,7 @@
     filterStatus: document.getElementById("filterStatus"),
     clearFilters: document.getElementById("clearFilters"),
     resetBtn: document.getElementById("resetBtn"),
+    exportBtn: document.getElementById("exportBtn"),
     // dashboard
     solvedCount: document.getElementById("solvedCount"),
     totalCount: document.getElementById("totalCount"),
@@ -383,6 +384,46 @@
     saveSet(STORAGE_KEY, doneSet);
     render();
     updateStats();
+  });
+
+  // ---- Export progress (AI-friendly text file) -------------------------
+  function buildExportText() {
+    const done = QUESTIONS.filter((q) => doneSet.has(q.id));
+    const todo = QUESTIONS.filter((q) => !doneSet.has(q.id));
+    const line = (q) =>
+      "- " + shortCode(q) + " [" + q.difficulty + ", Unit " + q.unit +
+      ", " + q.topic + (q.subtag ? " / " + q.subtag : "") + "] — " + q.prompt;
+
+    const lines = [];
+    lines.push("Advanced Algorithms — practice progress");
+    lines.push("Generated: " + new Date().toISOString());
+    lines.push("Solved " + done.length + " of " + QUESTIONS.length + " questions.");
+    lines.push("");
+    lines.push("========================================");
+    lines.push("DONE (" + done.length + ")");
+    lines.push("========================================");
+    done.forEach((q) => lines.push(line(q)));
+    lines.push("");
+    lines.push("========================================");
+    lines.push("NOT DONE (" + todo.length + ")");
+    lines.push("========================================");
+    todo.forEach((q) => lines.push(line(q)));
+    lines.push("");
+    return lines.join("\n");
+  }
+
+  els.exportBtn.addEventListener("click", function () {
+    const text = buildExportText();
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const stamp = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = "aa-progress-" + stamp + ".txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   });
 
   // ---- Init ------------------------------------------------------------

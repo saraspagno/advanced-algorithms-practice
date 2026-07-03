@@ -75,6 +75,8 @@ body {
   transition: all 0.15s ease;
 }
 .reset-btn:hover { color: var(--hard); border-color: var(--hard); }
+.topbar-actions { display: flex; gap: 10px; align-items: center; }
+.export-btn:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ---------- Layout ---------- */
 .container { max-width: 1180px; margin: 0 auto; padding: 28px 20px 60px; }
